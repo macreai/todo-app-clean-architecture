@@ -5,6 +5,7 @@ import (
 	"github.com/macreai/todo-app-clean-architecture/internal/http/handler"
 	"github.com/macreai/todo-app-clean-architecture/internal/repository/postgres"
 	"github.com/macreai/todo-app-clean-architecture/internal/usecase"
+	"github.com/macreai/todo-app-clean-architecture/pkg/auth"
 	"gorm.io/gorm"
 )
 
@@ -15,11 +16,20 @@ func NewRouter(db *gorm.DB) *fiber.App {
 	activityUsecase := usecase.NewActivityUserUsecase(activityRepo)
 	activityHandler := handler.NewActivityUserHandler(activityUsecase)
 
-	app.Post("/activity", activityHandler.Create)
+	userRepo := postgres.NewPostgreUserRepository(db)
+	authUsecase := usecase.NewAuthUseCase(userRepo)
+	authHandler := handler.NewAuthHandler(authUsecase)
+
+	app.Use("/activity/", auth.JWTMiddleware())
+
+	app.Post("/activity/", activityHandler.Create)
 	app.Get("/activity/:id", activityHandler.GetByID)
 	app.Get("/activity/", activityHandler.GetAll)
 	app.Put("/activity/:id", activityHandler.Update)
 	app.Delete("/activity/:id", activityHandler.Delete)
+
+	app.Post("/register", authHandler.Register)
+	app.Post("/login", authHandler.Login)
 
 	return app
 }

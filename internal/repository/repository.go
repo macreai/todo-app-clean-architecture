@@ -9,3 +9,8 @@ type ActivityUserRepository interface {
 	Update(user *domain.ActivityUser) error
 	Delete(id uint) error
 }
+
+type UserRepository interface {
+	CreateUser(user *domain.User) error
+	GetUserByUsername(username string) (*domain.User, error)
+}

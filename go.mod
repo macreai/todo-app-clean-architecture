@@ -11,6 +11,7 @@ require (
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/uuid v1.5.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
@@ -26,7 +27,7 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.51.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
-	golang.org/x/crypto v0.17.0 // indirect
+	golang.org/x/crypto v0.17.0
 	golang.org/x/sync v0.7.0 // indirect
 	golang.org/x/sys v0.15.0 // indirect
 	golang.org/x/text v0.16.0 // indirect
